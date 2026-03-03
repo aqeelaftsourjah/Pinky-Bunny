@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pink Prank</title>
+</head>
+
+<body style="margin:0; background:linear-gradient(135deg,#ffb6f9,#ff69b4); text-align:center; font-family:Arial; color:white; overflow:hidden;">
+
+<!-- Silly images at the front -->
+<div id="frontImages" style="margin-top:50px;">
+    <img src="Diva🎀🎀.jpg" width="200" style="margin:10px;">
+    <img src="download (15).jpg" width="200" style="margin:10px;">
+</div>
+
+<h1 id="title" style="margin-top:20px; font-size:60px;">Welcome Princess 💗/ And GERMS😒🤷‍♀️</h1>
+
+<button id="startBtn" style="padding:15px 30px; font-size:20px; border:none; border-radius:25px; background:white; color:#ff69b4; cursor:pointer;">
+Start
+</button> 
+
+<div id="videoContainer" style="display:none; margin-top:50px; position:relative; width:600px; margin-left:auto; margin-right:auto;">
+    
+    <!-- Overlay prank text -->
+    <h1 style="
+        position:absolute;
+        top:20px;
+        left:50%;
+        transform:translateX(-50%);
+        color:#ff69b4;
+        font-size:40px;
+        text-shadow: 2px 2px white;
+        z-index:10;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+    ">
+        FAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!
+    </h1>
+
+    <video id="video67" width="600" autoplay>
+        <source src="WhatsApp Video 2026-03-03 at 20.18.02.mp4" type="video/mp4">
+    </video>
+</div>
+
+<h2 id="hacked" style="display:none; margin-top:50px;"></h2>
+
+<canvas id="confettiCanvas" style="position:fixed; top:0; left:0; pointer-events:none;"></canvas>
+
+<audio id="finalBoom" src="boom.mp3"></audio>
+
+<script>
+
+const startBtn = document.getElementById("startBtn");
+const title = document.getElementById("title");
+const frontImages = document.getElementById("frontImages");
+const videoContainer = document.getElementById("videoContainer");
+const video = document.getElementById("video67");
+const hacked = document.getElementById("hacked");
+const finalBoom = document.getElementById("finalBoom");
+
+startBtn.onclick = function() {
+
+    // Fullscreen
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    }
+
+    // Hide front elements
+    startBtn.style.display = "none";
+    title.style.display = "none";
+    frontImages.style.display = "none";
+
+    // Show video
+    videoContainer.style.display = "block";
+    video.play();
+
+    // When video ends → HACKED screen
+    video.onended = function() {
+
+        videoContainer.style.display = "none";
+        document.body.style.background = "black";
+
+        hacked.style.display = "block";
+        hacked.style.color = "red";
+        hacked.style.fontSize = "35px";
+        hacked.innerHTML =
+        "⚠ SYSTEM HACKED ⚠<br><br>" +
+        "Device: " + navigator.platform + "<br>" +
+        "Screen: " + screen.width + "x" + screen.height + "<br>" +
+        "Language: " + navigator.language;
+
+        // After 3 sec → PRANK REVEAL with silly images
+        setTimeout(function(){
+
+            finalBoom.play();
+
+            document.body.style.background = "#ff69b4";
+            hacked.innerHTML =
+            `<h1>LMAOOOOOOOO 😭💗<br>YOU GOT PRANKED......................<br> YOU DIDNT GET HACKED!!😂😘🩷</h1>
+            <img src="download (16).jpg" width="200" style="margin:10px;">
+            <img src="Results for quiz I judge ur music taste.jpg" width="200" style="margin:10px;">`;
+
+            hacked.style.color = "white";
+
+            startConfetti();
+
+        },3000);
+
+    };
+
+};
+
+
+// 💗 Pink Confetti
+function startConfetti() {
+
+    const canvas = document.getElementById("confettiCanvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const pieces = [];
+
+    for (let i = 0; i < 150; i++) {
+        pieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 8 + 4,
+            speed: Math.random() * 3 + 2,
+            color: `hsl(${Math.random() * 30 + 320}, 100%, 75%)`
+        });
+    }
+
+    function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        pieces.forEach(p => {
+            p.y += p.speed;
+            if (p.y > canvas.height) p.y = 0;
+
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, p.size, p.size);
+        });
+
+        requestAnimationFrame(update);
+    }
+
+    update();
+}
+
+</script>
+
+</body>
+</html>
